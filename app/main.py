@@ -1,8 +1,15 @@
 from flask import Flask, render_template, url_for, request
 from sklearn.externals import joblib
 
-if not("clf" in globals()) and not("clf" in locals()):
-    clf = joblib.load(open("troll_model.pkl", "rb"))
+import os
+
+#import cloudstorage
+#from google.appengine.api import app_identity
+
+#import webapp2
+
+#if not("clf" in globals()) and not("clf" in locals()):
+#clf = joblib.load(open("static/troll_model.pkl", "rb"))
 
 application = Flask(__name__)
 
@@ -12,8 +19,7 @@ def home():
 
 @application.route('/predict', methods=['POST'])
 def predict():
-    #if not("clf" in globals()) and not("clf" in locals()):
-        #clf = joblib.load(open("troll_model.pkl", "rb"))
+    clf = joblib.load(open("static/troll_model.pkl", "rb"))
 
     if request.method == "POST":
         message = request.form['message']
@@ -21,6 +27,7 @@ def predict():
         pred = clf.predict(data)
 
     return render_template("result.html", prediction=pred)
+
 
 
 if __name__ == '__main__':
