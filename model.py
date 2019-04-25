@@ -10,7 +10,7 @@ from sklearn.externals import joblib
 from sklearn.decomposition import TruncatedSVD
 
 # Models
-from sklearn.neural_network import MLPClassifier    
+from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import BaggingClassifier, AdaBoostClassifier, RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
@@ -59,7 +59,7 @@ def run_classifiers(clfs,X,Y,pipeline, k=10):
     for i in clfs:
         try:
             clf = clfs[i]
-            print("\n\n======= {0} =======".format(i))         
+            print("\n\n======= {0} =======".format(i))
             scores = cross_validate(clf, Xproc, Y, cv=kf, scoring=scoring)
             print("mean execution time : ", np.mean(scores['fit_time'] + scores['score_time']))
             print("mean accuracy : ",np.mean(scores['test_accuracy']))
@@ -68,7 +68,7 @@ def run_classifiers(clfs,X,Y,pipeline, k=10):
             print(e)
 
 #%% Preprocessing
-            
+
 # Use of the stems of the words, and remove the stop words
 def Tokenizer(str_input):
     words = re.sub(r"[^A-Za-z0-9\-]", " ", str_input).lower().split()
@@ -100,7 +100,7 @@ gs_RF.fit(X_proc,Y)
 #%% We select RF as it gives the best results : we train the model on all data and save it
 
 final_pipe = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3), tokenizer=Tokenizer)),
-                      ('svd', TruncatedSVD(algorithm='randomized', n_components=300, random_state=1)), 
+                      ('svd', TruncatedSVD(algorithm='randomized', n_components=300, random_state=1)),
                       ('rf', RandomForestClassifier(n_estimators=200, random_state=1, n_jobs=10, criterion= 'entropy'))])
 
 final_pipe.fit(X, Y)
@@ -108,9 +108,9 @@ joblib.dump(final_pipe, 'best_model.pkl')
 
 #%% We save a small model which stil give good results for size reasons
 
-small_pipe = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3), tokenizer=Tokenizer)),
-                      ('svd', TruncatedSVD(algorithm='randomized', n_components=300, random_state=1)), 
-                      ('rf', RandomForestClassifier(n_estimators=5, random_state=1, n_jobs=10, criterion= 'gini'))])
+small_pipe = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3))),
+                      ('svd', TruncatedSVD(algorithm='randomized', n_components=300, random_state=1)),
+                      ('rf', RandomForestClassifier(n_estimators=5, random_state=1, criterion= 'gini'))])
 
 small_pipe.fit(X, Y)
 joblib.dump(small_pipe, 'small_model.pkl')

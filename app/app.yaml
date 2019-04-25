@@ -1,9 +1,13 @@
-runtime: python37
+runtime: python
 entrypoint: gunicorn -b :$PORT main:application
+env: flex
 
-handlers:
-- url: /static
-  static_dir: static
+runtime_config:
+  python_version: 3
 
-- url : /.*
-  script: auto
+# handlers:
+# - url: /static
+#   static_dir: static
+
+# - url : /.*
+#   script: auto
