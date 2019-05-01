@@ -39,13 +39,14 @@ Y = Y.astype(int)
 
 # Some classifiers
 clfs = {
-'CART': DecisionTreeClassifier(random_state=1),
-'RF': RandomForestClassifier(n_estimators=100, random_state=1, n_jobs=4),
-'ID3': DecisionTreeClassifier(criterion = 'entropy', random_state=1),
+#'CART': DecisionTreeClassifier(random_state=1),
+'RF': RandomForestClassifier(n_estimators=100, random_state=1, n_jobs=10),
+'RF2': RandomForestClassifier(n_estimators=200, random_state=1, n_jobs=10, criterion="entropy"),
+#'ID3': DecisionTreeClassifier(criterion = 'entropy', random_state=1),
 'MLP': MLPClassifier(solver='lbfgs',alpha=1e-5,hidden_layer_sizes=(200,100),random_state=1),
-'KPPV': KNeighborsClassifier(n_neighbors=7),
-'BAGGING': BaggingClassifier(n_estimators=50,random_state=1),
-'ADABOOST': AdaBoostClassifier(n_estimators=50, random_state=1),
+#'KPPV': KNeighborsClassifier(n_neighbors=7),
+#'BAGGING': BaggingClassifier(n_estimators=50,random_state=1),
+#'ADABOOST': AdaBoostClassifier(n_estimators=50, random_state=1),
 'SVC': SVC(gamma='scale', decision_function_shape='ovo'),
 }
 
@@ -78,7 +79,7 @@ def Tokenizer(str_input):
     return words
 
 # Preprocessing pipeline : Bag of Words + Tf-idf + SVD
-text_proc = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3), tokenizer=Tokenizer)),
+text_proc = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3))),
                       ('svd', TruncatedSVD(algorithm='randomized', n_components=300, random_state=1))])
 
 
@@ -99,7 +100,7 @@ gs_RF.fit(X_proc,Y)
 
 #%% We select RF as it gives the best results : we train the model on all data and save it
 
-final_pipe = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3), tokenizer=Tokenizer)),
+final_pipe = Pipeline([('tfidf', TfidfVectorizer(min_df=.0025, max_df=0.25, ngram_range=(1,3))),
                       ('svd', TruncatedSVD(algorithm='randomized', n_components=300, random_state=1)),
                       ('rf', RandomForestClassifier(n_estimators=200, random_state=1, n_jobs=10, criterion= 'entropy'))])
 

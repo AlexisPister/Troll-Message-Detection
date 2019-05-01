@@ -1,10 +1,7 @@
 from flask import Flask, render_template, url_for, request
 from sklearn.externals import joblib
-import re
 
-from nltk import PorterStemmer
-from nltk.corpus import stopwords
-
+#from model import Tokenizer
 # =============================================================================
 # from sklearn.feature_extraction.text import TfidfVectorizer
 # from sklearn.decomposition import TruncatedSVD
@@ -15,15 +12,6 @@ from nltk.corpus import stopwords
 
 clf = joblib.load(open("static/best_model.pkl", "rb"))
 application = Flask(__name__)
-
-
-# Use of the stems of the words, and remove the stop words
-def Tokenizer(str_input):
-    words = re.sub(r"[^A-Za-z0-9\-]", " ", str_input).lower().split()
-    porter_stemmer=PorterStemmer()
-    words = [word for word in words if word not in stopwords.words('english')]
-    words = [porter_stemmer.stem(word) for word in words]
-    return words
 
 
 def give_result(message):
@@ -47,7 +35,6 @@ def predict():
         #pred = clf.predict(data)
 
     return render_template("result.html", prediction=give_result(data))
-
 
 
 if __name__ == '__main__':
