@@ -1,6 +1,6 @@
 # Troll-d
 
-Troll-d is an application hosted on the google cloud app engine, which predict if a message can be considered as a  "troll" message, with a Random Forest algorithm.
+Troll-d is an application hosted on the google cloud app engine, which predicts if a message can be considered as a  "troll" message, with a Random Forest algorithm.
 
 ## The model
 
