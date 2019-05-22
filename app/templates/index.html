@@ -2,17 +2,19 @@
 <html>
 <head>
 	<title>Home</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
 	<link rel="stylesheet" type="text/css" href="../static/style.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
 </head>
-<body>
+<body class = "w3-flat-turquoise">
 
 	<header>
-		<div class="container">
-		<h2>Troll Message Detector</h2>
+		<div class="w3-container">
+		<h2>Troll Message Detection</h2>
 		</div>
 	</header>
 
-	<div class="ml-container">
+	<div class="w3-container">
 
 		<form action="{{ url_for('predict')}}" method="POST">
 		<p>Enter Your Message Here</p>

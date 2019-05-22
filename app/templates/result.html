@@ -2,17 +2,19 @@
 <html>
 <head>
 	<title></title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
 </head>
-<body>
+<body class = "w3-flat-turquoise">
 
 	<header>
-		<div class="container">
+		<div class="w3-container">
 			<h2>Troll Message Detector</h2>
 		</div>
 	</header>
 
-	<div class="results">
+	<div class="w3-container">
 		
 	{% if prediction == 1%}
 	<h2 style="color:red;">It's a troll !</h2>

@@ -6,7 +6,7 @@ Troll-d is an application hosted on the google cloud app engine, which predicts 
 
 The raw text go through a Bag of Words and a Tf-Idf transformation. A truncated SVD is then applied to reduce the dimensionnality and get a vector of 300 dimensions describing the text. This vector is then given to a trained and optimized Random Forest Algorithm, labeling the message as "troll" or "not troll". An *AUC of 0.965* is achieved on the validation set.
 
-The script model.py is a study to find the algorithm and parameters giving the best AUC possible (it should be opened with spyder to have control over the cells).
+The notebook modelStudy.ipynb is a study to find the algorithm and parameters giving the best AUC possible (it should be opened with spyder to have control over the cells).
 
 ## The app
 
